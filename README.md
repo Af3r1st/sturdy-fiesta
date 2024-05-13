@@ -7,4 +7,3 @@
 7. Open e-commerce-frontend in integrated terminal
 8. npm install
 9. npm start
-10. V backendu index.js zmenit pass k databazi"" na heslo které pošlu spolu s příručkou
