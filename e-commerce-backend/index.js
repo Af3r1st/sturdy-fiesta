@@ -15,8 +15,6 @@ app.use(cors());
 // Database Connection With MongoDB
 
 mongoose.connect("mongodb+srv://levurda2003:123123123@cluster0.takr61a.mongodb.net/e-commerce");
-// paste your mongoDB Connection string above with password
-// password should not contain '@' special character
 
 
 
@@ -198,7 +196,7 @@ app.post('/signup', async (req, res) => {
       email: req.body.email,
       password: req.body.password,
       cartData: cart,
-      role: req.body.role || "user", // Allow user to specify role during sign-up
+      role: req.body.role || "user", 
   });
   await user.save();
   const data = {
