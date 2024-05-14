@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import "./CSS/LoginSignup.css";
-import { useNavigate } from 'react-router-dom';
-
 
 const LoginSignup = () => {
 
   const [state,setState] = useState("Login");
   const [formData,setFormData] = useState({username:"",email:"",password:""});
-  const history = useNavigate(); 
+
   const changeHandler = (e) => {
     setFormData({...formData,[e.target.name]:e.target.value});
     }
@@ -26,40 +24,14 @@ const LoginSignup = () => {
       .then((data) => {dataObj=data});
       console.log(dataObj);
       if (dataObj.success) {
-        //localStorage.setItem('auth-token',dataObj.token);
-        document.cookie = `token=${dataObj.token}; path=/; Secure; SameSite=Strict`;
-        checkTokenAndRedirect();
-       // window.location.replace("/");
+        localStorage.setItem('auth-token',dataObj.token);
+        window.location.replace("/");
       }
       else
       {
         alert(dataObj.errors)
       }
   }
-  //
-  const checkTokenAndRedirect = async () => {
-    try {
-      const response = await fetch("http://localhost:4000/get-checktoken", {
-        method: "GET",
-        credentials: "include" 
-      });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-  
-      const data = await response.json();
-      const isAuthenticated = data.message;
-  
-      if (isAuthenticated === 'You are authenticated') {
-        history.push("/Admin");
-      } else {
-        history.push("/login");
-      }
-    } catch (error) {
-      console.error("Error checking authentication:", error);
-    }
-  };
 
   const signup = async () => {
     let dataObj;
@@ -110,3 +82,4 @@ const LoginSignup = () => {
 };
 
 export default LoginSignup;
+
